@@ -1,9 +1,32 @@
-# frozen_string_literal: true
-
 require 'rails_helper'
 
-RSpec.describe 'ComentariosRequest', :type => :request do
-  context 'Requests de Comentário'
+RSpec.describe "Comentarios", type: :request do
+
+
+  # describe "GET /comentarios" do
+  #   it "Get all comments" do
+  #     get '/comentarios'
+  #     expect(response).to have_http_status(:success)
+  #   end
+  # end
+
+  # describe "POST /comentarios" do
+  #   it "Create a new comment" do
+  #     post '/comentarios', params: { comentario: { descricao: 'Descrição'} }
+  #     expect(response).to have_http_status(:created)
+  #   end
+  # end
+  #
+  # describe "DELETE /comentarios/:id" do
+  #   let!(:comentario) { Comentario.new(descricao: 'Descrição').save }
+  #   it "Delete a comment" do
+  #     delete "/comentarios/#{comentario.id}"
+  #     expect(response).to have_http_status(:success)
+  #   end
+  # end
+
+
+
 
   # it 'return all comentarios' do
   #   # request.headers["X-Usuario-Email"] = "adriano@admin.com"
@@ -36,18 +59,29 @@ RSpec.describe 'ComentariosRequest', :type => :request do
   # it 'return all comentarios' do
   #     headers = { "ACCEPT" => "application/json"}
   #     post '/comentarios', :params => { :comentario => {:descricao => "minha descrição"}}, :headers => headers
-  #     expect(response).to have_http_status(:success) # retorna 401
+  #     expect(response).to have_http_status(:success) # retorna 401 Unauthorized
   # end
   #
-  # it 'return all comentarios' do
-  #   get '/comentarios'
-  #   expect(response).to have_http_status(:success) # retorna 302
+  #   it 'get to return all comentarios' do
+  #     get '/comentarios', as: :json, headers: {:Authorization => "UxQUfrH28eZrrkQ6zooH"}
+  #     expect(response).to have_http_status(:success) # retorna 401 Unauthorized
+  #   end
+  #
+  #  it 'get to return all comentarios' do
+  #     get '/comentarios'
+  #     expect(response).to have_http_status(:success) # retorna 302 Moved Temporarily
+  #   end
+
+
+
+  # it 'get to return all comentarios' do
+  #   # @request.env['Authorization'] = "UxQUfrH28eZrrkQ6zooH"
+  #   # request.env['Authorization'] = "UxQUfrH28eZrrkQ6zooH"
+  #   header 'Authorization', "Bearer UxQUfrH28eZrrkQ6zooH"
+  #   get comentarios_path
+  #   expect(response).to have_http_status(:success)
   # end
 
-  context 'Comentário inválido' do
-    it 'possui valores nulos' do
-      comentario = Comentario.new
-      expect(comentario.valid?).to be_falsey
-    end
-  end
+
+
 end

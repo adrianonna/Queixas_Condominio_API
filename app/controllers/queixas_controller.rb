@@ -87,6 +87,6 @@ class QueixasController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def queixa_params
-      params.require(:queixa).permit(:usuario_id, :usuarioid, :tipo, :gravidade, :titulo, :descricao, :privacidade, :status, :arquivos, :comentarios)
+      params.require(:queixa).permit(:usuario_id, :usuarioid, :tipo, :gravidade, :titulo, :descricao, :privacidade, :status, :arquivos, :comentarios, :criado_por, :status_id)
     end
 end

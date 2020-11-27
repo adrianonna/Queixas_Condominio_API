@@ -11,4 +11,11 @@ class Queixa
   has_many :comentarios, dependent: :destroy
   belongs_to :status
 
+  validates :tipo, presence: true
+  validates :gravidade, presence: true
+  validates :titulo, presence: true
+  validates :descricao, presence: true
+  validates :privacidade, presence: true
+  validates :criado_por, presence: true
+
 end
