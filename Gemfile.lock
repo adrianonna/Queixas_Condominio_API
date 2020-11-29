@@ -83,6 +83,11 @@ GEM
       warden (~> 1.2.3)
     diff-lcs (1.4.4)
     erubi (1.9.0)
+    factory_bot (6.1.0)
+      activesupport (>= 5.0.0)
+    factory_bot_rails (6.1.0)
+      factory_bot (~> 6.1.0)
+      railties (>= 5.0.0)
     ffi (1.13.1)
     ffi (1.13.1-java)
     ffi (1.13.1-x64-mingw32)
@@ -237,6 +242,7 @@ DEPENDENCIES
   bootsnap (>= 1.4.2)
   byebug
   devise
+  factory_bot_rails
   listen (~> 3.2)
   mongoid (~> 7.1, >= 7.1.4)
   puma (~> 4.1)

@@ -17,5 +17,5 @@ class Queixa
   validates :descricao, presence: true
   validates :privacidade, presence: true
   validates :criado_por, presence: true
-
+  validates :status_id, presence: true
 end

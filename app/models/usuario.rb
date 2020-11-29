@@ -48,6 +48,6 @@ class Usuario
   validates :email, presence: true
   validates :password, presence: true
   validates :password_confirmation, presence: true
-  # validates :perfil_id, presence: true
+  validates :perfil_id, presence: true
 
 end
