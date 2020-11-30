@@ -3,9 +3,20 @@ class UsuariosController < ApplicationController
 
   # GET /usuarios
   def index
-    @usuarios = Usuario.all
+    tokenUser = @_request.headers["X-Usuario-Token"]
+    user = Usuario.where(:authentication_token => tokenUser)
 
-    render json: @usuarios
+    if user[0].perfil_id === "5fa1b6b64debe72ed41388ac"
+      @usuarios = Usuario.all
+      render json: @usuarios
+    else
+      render json: {
+          messages: "You are not authorized to view all users",
+          is_success: false,
+          data: {}
+      }, status: :unauthorized
+    end
+
   end
 
   # GET /usuarios/1
