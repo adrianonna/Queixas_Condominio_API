@@ -37,15 +37,43 @@ class UsuariosController < ApplicationController
 
   # DELETE /usuarios/1
   def destroy
+    tokenUser = @_request.headers["X-Usuario-Token"]
+    user = Usuario.where(:authentication_token => tokenUser)
     @queixas = Queixa.where(:criado_por => params[:id])
-    @comentariosUsuario = Comentario.where(:usuario_id => params[:id])
+    @passou = true
 
-    #falta excluir todos os comentários vinculados a queixa que outros usuários fizeram. Algo do tipo que está a baixo
-    # @comentariosOutrosUsuarios = Comentario.where(:queixa_id => @queixas[:id]) #esse @queixas é o resultado de todas as queixas do usuario, para verificar quais comentários estão nessas queixas
+    if user[0].perfil_id === "5fa1b6b64debe72ed41388ac" #Verifica se o usuário for admin
+      for queixa in @queixas.each #Para cada queixa do usuário
+        if queixa.status_id.to_s != "5fa1ba423ca57304b0fe6f8e" #Verifica se tem alguma queixa que não está fechada
+          @passou = false
+        end
+      end
 
-    @comentariosUsuario.destroy
-    @queixas.destroy
-    @usuario.destroy
+      if @passou == true
+        for queixa in @queixas.each #Para cada queixa do usuário
+          for comentario in Comentario.each #Para cada comentário
+            if queixa.id === comentario.queixa_id #Verifica se o comentário faz parte de cada queixa em questão
+              @comentario = Comentario.where(:queixa_id => queixa.id) #Salva o comentario para poder dar o destroy
+              @comentario.destroy
+            end
+          end
+        end
+        @queixas.destroy
+        @usuario.destroy
+      else
+        render json: {
+            messages: "You have unfinished reports",
+            is_success: false,
+            data: {}
+        }, status: :unauthorized
+      end
+    else
+      render json: {
+          messages: "You don't have necessary authorization",
+          is_success: false,
+          data: {}
+      }, status: :unauthorized
+    end
   end
 
   private

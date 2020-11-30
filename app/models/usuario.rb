@@ -43,11 +43,4 @@ class Usuario
   has_many :comentarios
   has_and_belongs_to_many :queixas
 
-  validates :nome, presence: true
-  validates :endereco, presence: true
-  validates :email, presence: true
-  validates :password, presence: true
-  validates :password_confirmation, presence: true
-  validates :perfil_id, presence: true
-
 end

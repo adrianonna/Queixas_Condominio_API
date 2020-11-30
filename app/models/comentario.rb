@@ -7,6 +7,4 @@ class Comentario
   belongs_to :queixa
 
   validates :descricao, presence: true
-  validates :usuario_id, presence: true
-  validates :queixa_id, presence: true
 end
