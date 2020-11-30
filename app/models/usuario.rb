@@ -42,5 +42,5 @@ class Usuario
   belongs_to :perfil
   has_many :comentarios
   has_and_belongs_to_many :queixas
-  
+
 end

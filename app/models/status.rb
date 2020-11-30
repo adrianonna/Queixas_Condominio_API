@@ -3,4 +3,7 @@ class Status
   include Mongoid::Timestamps
   field :estado, type: String
   has_one :queixa
+
+  validates :estado, presence: true
+
 end

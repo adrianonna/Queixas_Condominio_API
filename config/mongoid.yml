@@ -4,6 +4,7 @@ development:
     # Defines the default client. (required)
     default:
       uri: mongodb+srv://ifpb:ifpb@deps.jobfh.mongodb.net/ifpb?retryWrites=true&w=majority
+#      uri: mongodb://ifpb:ifpb@deps-shard-00-01.jobfh.mongodb.net:27017/ifpb?retryWrites=true&w=majority
       # Mongoid can connect to a URI accepted by the driver:
       # uri: mongodb://user:password@mongodb.domain.com:27017/queixas_condominio_api_development
 

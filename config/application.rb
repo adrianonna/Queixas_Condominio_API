@@ -60,5 +60,11 @@ module QueixasCondominioApi
         end
       end
     end
+  
+  config.generators do |g|
+    g.test_framework :rspec,
+                    :views_specs => false
+  end
+
   end
 end

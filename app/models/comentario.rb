@@ -5,4 +5,6 @@ class Comentario
   belongs_to :usuario
   has_many :arquivos
   belongs_to :queixa
+
+  validates :descricao, presence: true
 end

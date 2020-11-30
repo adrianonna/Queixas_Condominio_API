@@ -47,10 +47,29 @@ class QueixasController < ApplicationController
 
   # DELETE /queixas/1
   def destroy
-    @comentarios = Comentario.where(:queixa_id => params[:id])
-    @comentarios.destroy
+    tokenUser = @_request.headers["X-Usuario-Token"]
+    user = Usuario.where(:authentication_token => tokenUser)
 
-    @queixa.destroy
+    if user[0].perfil_id === "5fa1b6b64debe72ed41388ac" #Se quem estiver excluindo for admin
+      @comentarios = Comentario.where(:queixa_id => params[:id]) #Pega todos os comentários daquela queixa
+      @comentarios.destroy
+      @queixa.destroy
+    elsif user[0]._id === @queixa.criado_por #Se quem estiver excluindo for o dono da queixa
+      @queixa.status_id = "5fbd58d23ca5732d6c6370ac" #Altera o estado da queixa para pendende para exclusão
+      @queixa.update
+      render json: {
+          messages: "Status changed - pending for exclusion",
+          is_success: false,
+          data: {}
+      }, status: :unauthorized
+    else
+      render json: {
+          messages: "You don't have necessary authorization",
+          is_success: false,
+          data: {}
+      }, status: :unauthorized
+    end
+
   end
 
   def find_by_criado_por

@@ -3,7 +3,18 @@ class RegistrationsController < Devise::RegistrationsController
     # sign up
   def create
     usuario = Usuario.new usuario_params
-    if usuario.save
+    emailRepetido = false
+    for u in Usuario.each #Para cada usuário
+      emailRepetido = true if u.email === usuario.email #True se existir um email igual ao email informado na requisicão
+    end
+
+    if (emailRepetido || usuario.password.length < 6 || usuario.password_confirmation.length < 6)
+      render json: {
+        messages: "Sign Up Failed1",
+        is_success: false,
+        data: {}
+      }, status: :expectation_failed
+    elsif usuario.save
       render json: {
         messages: "Sign Up Successfully",
         is_success: true,
@@ -11,7 +22,7 @@ class RegistrationsController < Devise::RegistrationsController
       }, status: :ok
     else
       render json: {
-        messages: "Sign Up Failed",
+        messages: "Sign Up Failed2",
         is_success: false,
         data: {}
       }, status: :unprocessable_entity
