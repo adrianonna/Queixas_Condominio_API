@@ -16,7 +16,7 @@ RSpec.describe Usuario, type: :model do
       usuario.email = 'teste@teste.com'
       usuario.endereco = 'Endereço do usuário'
       usuario.password = '123456'
-      usuario.password_confirmation = '123456'
+      # usuario.password_confirmation = '123456'
       usuario.perfil_id = Perfil.new
       # usuario.queixa_ids = []
       # usuario.encrypted_password = 'teste'

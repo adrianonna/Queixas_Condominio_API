@@ -3,9 +3,16 @@ class QueixasController < ApplicationController
   
   # GET /queixas
   def index
-    @queixas = Queixa.all
+    tokenUser = @_request.headers["X-Usuario-Token"]
+    user = Usuario.where(:authentication_token => tokenUser)
 
-    render json: @queixas
+    if user[0].perfil_id === "5fa1b6b64debe72ed41388ac"
+      @queixas = Queixa.all
+      render json: @queixas
+    else
+      @queixas = Queixa.where(:privacidade => false)
+      render json: @queixas
+    end
   end
 
   # GET /queixas/1
