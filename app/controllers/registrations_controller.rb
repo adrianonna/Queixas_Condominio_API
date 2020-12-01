@@ -4,8 +4,8 @@ class RegistrationsController < Devise::RegistrationsController
   def create
     usuario = Usuario.new usuario_params
     emailRepetido = false
-    for u in Usuario.each #Para cada usuário
-      emailRepetido = true if u.email === usuario.email #True se existir um email igual ao email informado na requisicão
+    for u in Usuario.each
+      emailRepetido = true if u.email === usuario.email
     end
 
     if (emailRepetido || usuario.password.length < 6 || usuario.password_confirmation.length < 6)

@@ -1,6 +1,6 @@
 class QueixasController < ApplicationController
   before_action :set_queixa, only: [:show, :update, :destroy]
-  
+
   # GET /queixas
   def index
     tokenUser = @_request.headers["X-Usuario-Token"]
@@ -65,15 +65,15 @@ class QueixasController < ApplicationController
       @queixa.status_id = "5fbd58d23ca5732d6c6370ac" #Altera o estado da queixa para pendende para exclusão
       @queixa.update
       render json: {
-          messages: "Status changed - pending for exclusion",
-          is_success: false,
-          data: {}
+        messages: "Status changed - pending for exclusion",
+        is_success: false,
+        data: {}
       }, status: :unauthorized
     else
       render json: {
-          messages: "You don't have necessary authorization",
-          is_success: false,
-          data: {}
+        messages: "You don't have necessary authorization",
+        is_success: false,
+        data: {}
       }, status: :unauthorized
     end
 
