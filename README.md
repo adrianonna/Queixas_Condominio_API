@@ -1,24 +1,22 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Desenvolvimento de uma API para Queixas de condomínio.
 
-Things you may want to cover:
+## Indíce
 
-* Ruby version
+- Ruby version 2.7.2
+- Rails version 6.0.3
+- Banco de dados: MongoDB Atlas
 
-* System dependencies
+## Instalação
 
-* Configuration
+Caso queira replicar este projeto, a instalação é simples.
 
-* Database creation
+```bash
+git clone https://github.com/adrianonna/Queixas_Condominio_API
+cd Queixas_Condominio_API/
+bundle install
+rails s
+```
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Para criar e configurar um banco MongoDB pelo <a href="https://docs.mongodb.com/mongoid/current/tutorials/getting-started-rails/#getting-started-rails">Atlas</a>
