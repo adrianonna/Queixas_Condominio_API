@@ -3,19 +3,22 @@ class UsuariosController < ApplicationController
 
   # GET /usuarios
   def index
-    tokenUser = @_request.headers["X-Usuario-Token"]
-    user = Usuario.where(:authentication_token => tokenUser)
+    # tokenUser = @_request.headers["X-Usuario-Token"]
+    # user = Usuario.where(:authentication_token => tokenUser)
 
-    if user[0].perfil_id === "5fa1b6b64debe72ed41388ac"
       @usuarios = Usuario.all
       render json: @usuarios
-    else
-      render json: {
-          messages: "You are not authorized to view all users",
-          is_success: false,
-          data: {}
-      }, status: :unauthorized
-    end
+
+    # if user[0].perfil_id === "5fa1b6b64debe72ed41388ac"
+    #   @usuarios = Usuario.all
+    #   render json: @usuarios
+    # else
+    #   @arr_id = []
+    #   for u in Usuario.each
+    #     @arr_id.push(u.id)
+    #   end
+    #   render json: @arr_id
+    # end
 
   end
 
@@ -39,11 +42,28 @@ class UsuariosController < ApplicationController
 
   # PATCH/PUT /usuarios/1
   def update
-    if @usuario.update(usuario_params)
-      render json: @usuario
+    tokenUser = @_request.headers["X-Usuario-Token"]
+    user = Usuario.where(:authentication_token => tokenUser)
+
+    if user[0].perfil_id === "5fa1b6b64debe72ed41388ac" || user[0].id === params[:id]
+      if @usuario.update(usuario_params)
+        render json: @usuario
+      else
+        render json: @usuario.errors, status: :unprocessable_entity
+      end
     else
-      render json: @usuario.errors, status: :unprocessable_entity
+      render json: {
+        messages: "You don't have necessary authorization",
+        is_success: false,
+        data: {}
+      }, status: :unauthorized
     end
+
+    # if @usuario.update(usuario_params)
+    #   render json: @usuario
+    # else
+    #   render json: @usuario.errors, status: :unprocessable_entity
+    # end
   end
 
   # DELETE /usuarios/1
