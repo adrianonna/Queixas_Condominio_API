@@ -44,11 +44,31 @@ class QueixasController < ApplicationController
 
   # PATCH/PUT /queixas/1
   def update
+    tokenUser = @_request.headers["X-Usuario-Token"]
+    user = Usuario.where(:authentication_token => tokenUser)
 
-    if @queixa.update(queixa_params)
-      render json: @queixa
+    if user[0].perfil_id === "5fa1b6b64debe72ed41388ac"
+      if @queixa.update(queixa_params)
+        render json: @queixa
+      else
+        render json: @queixa.errors, status: :unprocessable_entity
+      end
+    elsif user[0].id === @queixa.criado_por.to_s
+      if @queixa.update(queixa_params_comum) #Retorna true mesmo se tiver parâmetros não permitidos, mas não realiza o update
+        render json: @queixa
+      else
+        render json: {
+          messages: "You don't have necessary authorization",
+          is_success: false,
+          data: {}
+        }, status: :unauthorized
+      end
     else
-      render json: @queixa.errors, status: :unprocessable_entity
+      render json: {
+        messages: "You don't have necessary authorization",
+        is_success: false,
+        data: {}
+      }, status: :unauthorized
     end
   end
 
@@ -115,4 +135,8 @@ class QueixasController < ApplicationController
     def queixa_params
       params.require(:queixa).permit(:usuario_id, :usuarioid, :tipo, :gravidade, :titulo, :descricao, :privacidade, :status, :arquivos, :comentarios, :criado_por, :status_id)
     end
+
+  def queixa_params_comum
+    params.require(:queixa).permit(:tipo, :gravidade, :privacidade)
+  end
 end
