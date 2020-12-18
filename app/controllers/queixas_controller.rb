@@ -10,7 +10,8 @@ class QueixasController < ApplicationController
       @queixas = Queixa.all
       render json: @queixas
     else
-      @queixas = Queixa.where(:privacidade => false)
+      @queixas = Queixa.where(:status_id => "5fa1ba373ca57304b0fe6f8c").where(:privacidade => false)
+      p "AQUIIIIIIIIII QUEIXA: #{@queixas}"
       render json: @queixas
     end
   end
