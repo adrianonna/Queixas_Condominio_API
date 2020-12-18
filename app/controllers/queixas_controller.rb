@@ -10,9 +10,17 @@ class QueixasController < ApplicationController
       @queixas = Queixa.all
       render json: @queixas
     else
+      @arr_queixas = []
       @queixas = Queixa.where(:status_id => "5fa1ba373ca57304b0fe6f8c").where(:privacidade => false)
-      p "AQUIIIIIIIIII QUEIXA: #{@queixas}"
-      render json: @queixas
+      for q in Queixa.each
+        if (q.criado_por.to_s == user[0]._id.to_s)
+          @arr_queixas.push(q)
+        end
+        if (q.privacidade == false && q.status_id.to_s == "5fa1ba373ca57304b0fe6f8c")
+          @arr_queixas.push(q)
+        end
+      end
+      render json: @arr_queixas
     end
   end
 
